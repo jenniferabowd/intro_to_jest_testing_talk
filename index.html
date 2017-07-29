@@ -52,18 +52,43 @@
         <section>
           <h1>Why Jest?</h1>
           <ul>
-            <li>Most Mocha testing for React is from 2015 or early 2016</li>
             <li>Jest is built by Facebook</li>
+            <li>Top Google results for using Mocha with React is from 2015 or early 2016</li>
             <li>Was neglected for a long time, but for the past year they completely rewrote it and now it is great</li>
-            <li>Downside is there is not many docs with complex examples yet</li>
           </ul>
+          <aside class="notes">
+            <ul>
+              <li>Downside is there is not many docs with complex examples yet</li>
+              <li>I found it easy to write tests for front-end only code, but when I had to write my first tests with the API calls from the backend, it was a challenge</li>
+            </ul>
+          </aside>
+        </section>
+        <section>
+          <h1>This is a sample simple snapshot test</h1>
+          <pre><code class="hljs" data-trim contenteditable>
+            it('loads in pokemon list', () => {
+              const tree = renderer.create(<App />).toJSON();
+              expect(tree).toMatchSnapshot();
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h1>Does everyone understand the basics of Snapshot testing conceptually?</h1>
+          <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
+        </section>
+        <section>
+          <h1>This is what I learned from this process</h1>
         </section>
         <section>
           <h1>What is Snapshot Testing?</h1>
           <ul>
             <li>Allows you to quickly write testing for static data</li>
-            <li>If the data changes, you don't need to rewrite your test, it will do it by running `-u` after your test command</li>
+            <li>If the data changes, you don't need to rewrite your test, Jest will update the test by running `-u` after your test command</li>
+            <li>That is amazing compared to other testing</li>
           </ul>
+        </section>
+        <section>
+          <h1>How Snapshot testing works</h1>
         </section>
         <section>
           <h1>What does a test look like?</h1>
@@ -78,8 +103,8 @@
           <h1>First Error!</h1>
           <section data-markdown>
             ```
-            FAIL  reactTests/planTests/projectPlan.test.js
-            ● test to see if the project plan renders correctly
+            FAIL  tests/app.test.js
+            ● loads in pokemon list
 
               TypeError: Cannot read property 'names' of undefined
             ```
@@ -127,14 +152,84 @@
 
         </section>
         <section>
-          <h1>Not a Function</h1>
+          <h1>Now lets try this again...</h1>
         </section>
         <section>
-          <h1>.length not a function</h1>
+          <h1>New Error: Not a Function</h1>
+          <section data-markdown>
+            ```
+            FAIL  tests/app.test.js
+            ● loads in pokemon list
 
+              TypeError: getPokemon is not a function
+
+                at App.componentDidMount (src/App.js:13:4)
+            ```
+          </section>
         </section>
         <section>
-          <h1>Snapshot Folder</h1>
+          <h1>So then we got to App.js line 13 and we see this:</h1>
+          <pre><code class="hljs" data-trim contenteditable>
+            componentDidMount() {
+              this.getPokemon();
+            }
+          </code></pre>
+          <p>That is clearly a function...</p>
+        </section>
+        <section>
+          <h1>Rage!</h1>
+        </section>
+        <section>
+          <h2>Now we need to turn this function into a function in the test like this:</h2>
+          <pre><code class="hljs" data-trim contenteditable>
+            const getPokemon = () => {}
+          </code></pre>
+        </section>
+        <section>
+          <h1>And we change the test to this:</h1>
+          <pre><code class="hljs" data-trim contenteditable>
+            it('loads in pokemon list', () => {
+              const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
+              expect(tree).toMatchSnapshot();
+            });
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>Now we have a passing test!</h1>
+        </section>
+        <section>
+          <h1>Summary of the problem</h1>
+          <ul>
+            <li>Jest had a hard time accessing an array inside the json</li>
+            <li>Jest didn't understand that function called inside of componentDidMount() was a function, so we had to make this explicate</li>
+          </ul>
+        </section>
+        <section>
+          <h1>How to make Mocha work with Jest</h1>
+          <p>Add this to your package.json</p>
+          <pre><code class="hljs" data-trim contenteditable>
+            "scripts": {
+              "test-server": "mocha",
+              "test-react": "jest",
+              "test": "npm run test-server && npm run test-react"
+            },
+          </code></pre>
+        </section>
+        <section>
+          <h1>How to get Jest to work nicely with images, CSS, and node modules</h1>
+          <p>Add this to your package.json</p>
+          <pre><code class="hljs" data-trim contenteditable>
+            "jest": {
+                "moduleNameMapper": {
+                  "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
+                  "\\.(css|less)$": "<rootDir>/client/src/stylesheets/"
+                },
+                "testPathIgnorePatterns": [
+                  "<rootDir>/node_modules/"
+                ]
+              },
+          </code></pre>
         </section>
         <section>
           <h1>Any questions?</h1>

@@ -67,26 +67,64 @@
         </section>
         <section>
           <h1>What does a test look like?</h1>
+          <pre><code class="hljs" data-trim contenteditable>
+          it('loads in pokemon list', () => {
+            const tree = renderer.create(<App />).toJSON();
+            expect(tree).toMatchSnapshot();
+          });
+          </code></pre>
+        </section>
+        <section>
+          <h1>First Error!</h1>
+          <section data-markdown>
+            ```
+            FAIL  reactTests/planTests/projectPlan.test.js
+            ● test to see if the project plan renders correctly
 
+              TypeError: Cannot read property 'names' of undefined
+            ```
+          </section>
+        </section>
+        <section>
+          <h1>What that means</h1>
+          <p>That was caused by my data being structured like this:</p>
+           <pre><code class="hljs" data-trim contenteditable>
+            const data = {
+              names: [
+                {
+                    "url": "http://pokeapi.co/api/v2/pokemon/1/",
+                    "name": "bulbasaur"
+                },
+                // shortened for length
+              ]
+            }
+          </code></pre>
         </section>
 				<section>
-          <h1>Passing in Data</h1>
-<!--           <pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+          <h2>The solution is to passing in data</h2>
+          <p>In your test, you want to pass in your data, so literally copy and paste the API response like this:</p>
+          <pre><code class="hljs" data-trim contenteditable>
+            const data = {
+              names: [
+                {
+                    "url": "http://pokeapi.co/api/v2/pokemon/1/",
+                    "name": "bulbasaur"
+                },
+                // shortened for length
+              ]
+            }
+          </code></pre>
+          <p>data having an array called names, that holds the json threw things off</p>
+        </section>
+        <section>
+          <h1>And in your test add this:</h1>
+          <pre><code class="hljs" data-trim contenteditable>
+            it('loads in pokemon list', () => {
+              const tree = renderer.create(<App data={[data.names]} />).toJSON();
+              expect(tree).toMatchSnapshot();
+            });
+          </code></pre>
 
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-          </code></pre> -->
         </section>
         <section>
           <h1>Not a Function</h1>

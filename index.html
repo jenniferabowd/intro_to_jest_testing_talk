@@ -70,21 +70,21 @@
         </section>
 
         <section>
-          <h1>Sample Simple Snapshot Test</h1>
+          <h2>Sample Simple Snapshot Test</h2>
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
-            it('loads in pokemon list', () => {
-              const tree = renderer.create(<App />).toJSON();
-              expect(tree).toMatchSnapshot();
-            });
+it('loads in pokemon list', () => {
+  const tree = renderer.create(<App />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
                 ```
             </textarea>
           </section>
         </section>
 
         <section>
-          <h1>What is Snapshot Testing?</h1>
+          <h2>What is Snapshot Testing?</h2>
           <ul>
             <li>Allows you to quickly write testing for static data</li>
             <li>If the data changes, you don't need to rewrite your test, Jest will update the test by running `-u` after your test command</li>
@@ -93,7 +93,7 @@
         </section>
 
         <section>
-          <h1>How Snapshot testing works</h1>
+          <h2>How Snapshot testing works</h2>
           <ul>
             <li>You write a simple test with snapshot, then it saves that into a folder of snapshots.</li>
             <li>Then when you test it, it compares the page to the snapshot.</li>
@@ -107,11 +107,11 @@
         </section>
 
         <section>
-          <h1>Speak now or forever hold your peace!</h1>
+          <h2>Speak now or forever hold your peace!</h2>
         </section>
 
         <section>
-          <h1>First Error!</h1>
+          <h2>First Error!</h2>
           <section data-markdown>
             <textarea data-template>
                 ``` bash
@@ -147,7 +147,7 @@ const data = {
         </section>
 
 				<section>
-          <h2>The solution is to passing in data</h2>
+          <!-- <h2>The solution is to passing in data</h2> -->
           <p>In your test, you want to pass in your data, so literally copy and paste the API response like this:</p>
           <section data-markdown>
             <textarea data-template>
@@ -164,44 +164,48 @@ const data = {
                 ```
             </textarea>
           </section>
-          <p>data having an array called names, that holds the json threw things off</p>
+          <aside class="notes">
+            <p>data having an array called names, that holds the json threw things off</p>
+          </aside>
+
         </section>
 
         <section>
-          <h1>And in your test add this:</h1>
+          <h2>And in your test add this:</h2>
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
-            it('loads in pokemon list', () => {
-              const tree = renderer.create(<App data={[data.names]} />).toJSON();
-              expect(tree).toMatchSnapshot();
-            });
+it('loads in pokemon list', () => {
+  const tree = renderer.create(<App data={[data.names]} />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
                 ```
             </textarea>
           </section>
         </section>
 
         <section>
-          <h1>Now lets try this again...</h1>
+          <h2>Now lets try this again...</h2>
         </section>
 
         <section>
-          <h1>New Error: Not a Function</h1>
+          <h2>New Error: Not a Function</h2>
           <section data-markdown>
             <textarea data-template>
-                ``` javascript
-            FAIL  tests/app.test.js
-            ● loads in pokemon list
+                ``` bash
+FAIL  tests/app.test.js
+● loads in pokemon list
 
-              TypeError: getPokemon is not a function
+  TypeError: getPokemon is not a function
 
-                at App.componentDidMount (src/App.js:13:4)
+    at App.componentDidMount (src/App.js:13:4)
             ```
+            </textarea>
           </section>
         </section>
 
         <section>
-          <h1>So then we got to App.js line 13 and we see this:</h1>
+          <h2>So then we got to App.js line 13 and we see this:</h2>
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
@@ -211,29 +215,32 @@ componentDidMount() {
                 ```
             </textarea>
           </section>
+          </br>
+          </br>
+          </br>
+          </br>
+          </br>
           <p>That is clearly a function...</p>
         </section>
 
         <section>
-          <h1>Rage!</h1>
+          <h2>Rage!</h2>
         </section>
 
-        <!-- <section> -->
-<!--           <h2>Now we need to turn this function into a function</h2>
-          <p>In the test file, you want to add this outside of your test</p> -->
+        <section>
+          <h2>Now we need to turn this function into a function</h2>
+          <p>In the test file, you want to add this outside of your test</p>
           <section data-markdown>
-          ## Now we need to turn this function into a function
-          In the test file, you want to add this outside of your test
             <textarea data-template>
                 ``` javascript
 const getPokemon = () => {}
                 ```
             </textarea>
           </section>
-        <!-- </section> -->
+        </section>
 
         <section>
-          <h1>And we change the test to this:</h1>
+          <h2>And we change the test to this:</h2>
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
@@ -247,17 +254,17 @@ it('loads in pokemon list', () => {
         </section>
 
         <section>
-          <h1>Now we have a passing test!</h1>
+          <h2>Now we have a passing test!</h2>
         </section>
         <section>
-          <h1>Summary of the problem</h1>
+          <h2>Summary of the problem</h2>
           <ul>
             <li>Jest had a hard time accessing an array inside the json</li>
             <li>Jest didn't understand that function called inside of componentDidMount() was a function, so we had to make this explicate</li>
           </ul>
         </section>
         <section>
-          <h1>How to make Mocha work with Jest</h1>
+          <h2>How to make Mocha work with Jest</h2>
           <p>Add this to your package.json</p>
           <section data-markdown>
             <textarea data-template>
@@ -290,7 +297,7 @@ it('loads in pokemon list', () => {
           </section>
         </section>
         <section>
-          <h1>Any questions?</h1>
+          <h2>Any questions?</h2>
         </section>
 			</div>
 		</div>

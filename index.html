@@ -55,6 +55,7 @@
             <li>Jest is built by Facebook</li>
             <li>Top Google results for using Mocha with React is from 2015 or early 2016</li>
             <li>Was neglected for a long time, but for the past year they completely rewrote it and now it is great</li>
+            <li>Front-end only testing is easy, testing API calls from the backend is more complex</li>
           </ul>
           <aside class="notes">
             <ul>
@@ -64,23 +65,15 @@
           </aside>
         </section>
         <section>
-          <h1>This is a sample simple snapshot test</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <h1>Sample Simple Snapshot Test</h1>
+          <section data-markdown>
+            ```
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
-        </section>
-        <section>
-          <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
-          <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
-        </section>
-        <section>
-          <h1>Speak now or forever hold your peace!</h1>
-        </section>
-        <section>
-          <h1>This is what I learned from this process</h1>
+            ```
+          </section>
         </section>
         <section>
           <h1>What is Snapshot Testing?</h1>
@@ -100,12 +93,21 @@
         </section>
         <section>
           <h1>What does a test look like?</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
           it('loads in pokemon list', () => {
             const tree = renderer.create(<App />).toJSON();
             expect(tree).toMatchSnapshot();
           });
-          </code></pre>
+            ```
+          </section>
+        </section>
+        <section>
+          <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
+          <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
+        </section>
+        <section>
+          <h1>Speak now or forever hold your peace!</h1>
         </section>
         <section>
           <h1>First Error!</h1>
@@ -121,7 +123,8 @@
         <section>
           <h1>What that means</h1>
           <p>That was caused by my data being structured like this:</p>
-           <pre><code class="hljs" data-trim contenteditable>
+           <section data-markdown>
+            ```
             const data = {
               names: [
                 {
@@ -131,12 +134,14 @@
                 // shortened for length
               ]
             }
-          </code></pre>
+            ```
+          </section>
         </section>
 				<section>
           <h2>The solution is to passing in data</h2>
           <p>In your test, you want to pass in your data, so literally copy and paste the API response like this:</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             const data = {
               names: [
                 {
@@ -146,17 +151,20 @@
                 // shortened for length
               ]
             }
-          </code></pre>
+            ```
+          </section>
           <p>data having an array called names, that holds the json threw things off</p>
         </section>
         <section>
           <h1>And in your test add this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App data={[data.names]} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
+            ```
+          </section>
         </section>
         <section>
           <h1>Now lets try this again...</h1>
@@ -176,11 +184,13 @@
         </section>
         <section>
           <h1>So then we got to App.js line 13 and we see this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             componentDidMount() {
               this.getPokemon();
             }
-          </code></pre>
+            ```
+          </section>
           <p>That is clearly a function...</p>
         </section>
         <section>
@@ -189,18 +199,22 @@
         <section>
           <h2>Now we need to turn this function into a function</h2>
           <p>In the test file, you want to add this outside of your test</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             const getPokemon = () => {}
-          </code></pre>
+            ```
+          </section>
         </section>
         <section>
           <h1>And we change the test to this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
+            ```
+          </section>
         </section>
 
         <section>
@@ -216,18 +230,21 @@
         <section>
           <h1>How to make Mocha work with Jest</h1>
           <p>Add this to your package.json</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             "scripts": {
               "test-server": "mocha",
               "test-react": "jest",
               "test": "npm run test-server && npm run test-react"
             },
-          </code></pre>
+            ```
+          </section>
         </section>
         <section>
           <h2>How to get Jest to work nicely with images, CSS, and node modules</h2>
           <p>Add this to your package.json</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            ```
             "jest": {
                 "moduleNameMapper": {
                   "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
@@ -237,7 +254,8 @@
                   "<rootDir>/node_modules/"
                 ]
               },
-          </code></pre>
+            ```
+          </section>
         </section>
         <section>
           <h1>Any questions?</h1>

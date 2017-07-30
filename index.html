@@ -66,14 +66,12 @@
         </section>
         <section>
           <h1>Sample Simple Snapshot Test</h1>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-            ```
-          </section>
+          </code></pre>
         </section>
         <section>
           <h1>What is Snapshot Testing?</h1>
@@ -91,16 +89,23 @@
             <li>If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `-u` to update the snapshot.</li>
           </ul>
         </section>
-        <section>
-          <h1>What does a test look like?</h1>
-          <section data-markdown>
-            ```
+        <section data-markdown="slides/jestExample.md">
+          <!-- <h1>What does a test look like?</h1> -->
+          <!-- BROKEN MARKDOWN -->
+<!--           <section data-markdown>
+            ``` javascript
           it('loads in pokemon list', () => {
             const tree = renderer.create(<App />).toJSON();
             expect(tree).toMatchSnapshot();
           });
             ```
-          </section>
+          </section> -->
+<!--           <pre><code class="hljs" data-trim contenteditable>
+            it('loads in pokemon list', () => {
+              const tree = renderer.create(<App />).toJSON();
+              expect(tree).toMatchSnapshot();
+            });
+          </code></pre> -->
         </section>
         <section>
           <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
@@ -123,8 +128,7 @@
         <section>
           <h1>What that means</h1>
           <p>That was caused by my data being structured like this:</p>
-           <section data-markdown>
-            ```
+           <pre><code class="hljs" data-trim contenteditable>
             const data = {
               names: [
                 {
@@ -134,14 +138,12 @@
                 // shortened for length
               ]
             }
-            ```
-          </section>
+          </code></pre>
         </section>
 				<section>
           <h2>The solution is to passing in data</h2>
           <p>In your test, you want to pass in your data, so literally copy and paste the API response like this:</p>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             const data = {
               names: [
                 {
@@ -151,20 +153,17 @@
                 // shortened for length
               ]
             }
-            ```
-          </section>
+          </code></pre>
           <p>data having an array called names, that holds the json threw things off</p>
         </section>
         <section>
           <h1>And in your test add this:</h1>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App data={[data.names]} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-            ```
-          </section>
+          </code></pre>
         </section>
         <section>
           <h1>Now lets try this again...</h1>
@@ -184,13 +183,11 @@
         </section>
         <section>
           <h1>So then we got to App.js line 13 and we see this:</h1>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             componentDidMount() {
               this.getPokemon();
             }
-            ```
-          </section>
+          </code></pre>
           <p>That is clearly a function...</p>
         </section>
         <section>
@@ -199,22 +196,18 @@
         <section>
           <h2>Now we need to turn this function into a function</h2>
           <p>In the test file, you want to add this outside of your test</p>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             const getPokemon = () => {}
-            ```
-          </section>
+          </code></pre>
         </section>
         <section>
           <h1>And we change the test to this:</h1>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-            ```
-          </section>
+          </code></pre>
         </section>
 
         <section>
@@ -230,21 +223,18 @@
         <section>
           <h1>How to make Mocha work with Jest</h1>
           <p>Add this to your package.json</p>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             "scripts": {
               "test-server": "mocha",
               "test-react": "jest",
               "test": "npm run test-server && npm run test-react"
             },
-            ```
-          </section>
+          </code></pre>
         </section>
         <section>
           <h2>How to get Jest to work nicely with images, CSS, and node modules</h2>
           <p>Add this to your package.json</p>
-          <section data-markdown>
-            ```
+          <pre><code class="hljs" data-trim contenteditable>
             "jest": {
                 "moduleNameMapper": {
                   "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
@@ -254,8 +244,7 @@
                   "<rootDir>/node_modules/"
                 ]
               },
-            ```
-          </section>
+          </code></pre>
         </section>
         <section>
           <h1>Any questions?</h1>

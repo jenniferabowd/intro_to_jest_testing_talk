@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Intro to Jest</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -33,7 +33,7 @@
           <p>
           Jennifer Kaplan
           </br>
-          Full Stack Developer at Crane.ai
+          Full Stack Developer Intern at Crane.ai
           </br>
           General Assembly alumna
           </p>
@@ -73,8 +73,11 @@
           </code></pre>
         </section>
         <section>
-          <h1>Does everyone understand the basics of Snapshot testing conceptually?</h1>
+          <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
           <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
+        </section>
+        <section>
+          <h1>Speak now or forever hold your peace!</h1>
         </section>
         <section>
           <h1>This is what I learned from this process</h1>
@@ -84,11 +87,16 @@
           <ul>
             <li>Allows you to quickly write testing for static data</li>
             <li>If the data changes, you don't need to rewrite your test, Jest will update the test by running `-u` after your test command</li>
-            <li>That is amazing compared to other testing</li>
+            <li>This makes Jest super easy to use to test</li>
           </ul>
         </section>
         <section>
           <h1>How Snapshot testing works</h1>
+          <ul>
+            <li>You write a simple test with snapshot, then it saves that into a folder of snapshots.</li>
+            <li>Then when you test it, it compares the page to the snapshot.</li>
+            <li>If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `-u` to update the snapshot.</li>
+          </ul>
         </section>
         <section>
           <h1>What does a test look like?</h1>
@@ -149,7 +157,6 @@
               expect(tree).toMatchSnapshot();
             });
           </code></pre>
-
         </section>
         <section>
           <h1>Now lets try this again...</h1>
@@ -180,7 +187,8 @@
           <h1>Rage!</h1>
         </section>
         <section>
-          <h2>Now we need to turn this function into a function in the test like this:</h2>
+          <h2>Now we need to turn this function into a function</h2>
+          <p>In the test file, you want to add this outside of your test</p>
           <pre><code class="hljs" data-trim contenteditable>
             const getPokemon = () => {}
           </code></pre>
@@ -217,7 +225,7 @@
           </code></pre>
         </section>
         <section>
-          <h1>How to get Jest to work nicely with images, CSS, and node modules</h1>
+          <h2>How to get Jest to work nicely with images, CSS, and node modules</h2>
           <p>Add this to your package.json</p>
           <pre><code class="hljs" data-trim contenteditable>
             "jest": {

@@ -205,9 +205,9 @@ const data = {
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
-            componentDidMount() {
-              this.getPokemon();
-            }
+componentDidMount() {
+  this.getPokemon();
+}
                 ```
             </textarea>
           </section>
@@ -226,7 +226,7 @@ const data = {
           In the test file, you want to add this outside of your test
             <textarea data-template>
                 ``` javascript
-            const getPokemon = () => {}
+const getPokemon = () => {}
                 ```
             </textarea>
           </section>
@@ -237,10 +237,10 @@ const data = {
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
-            it('loads in pokemon list', () => {
-              const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
-              expect(tree).toMatchSnapshot();
-            });
+it('loads in pokemon list', () => {
+  const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
                 ```
             </textarea>
           </section>
@@ -262,30 +262,29 @@ const data = {
           <section data-markdown>
             <textarea data-template>
                 ``` json
-            "scripts": {
-              "test-server": "mocha",
-              "test-react": "jest",
-              "test": "npm run test-server && npm run test-react"
-            },
+"scripts": {
+  "test-server": "mocha",
+  "test-react": "jest",
+  "test": "npm run test-server && npm run test-react"
+},
                 ```
             </textarea>
           </section>
         </section>
         <section>
-          <h2>How to get Jest to work nicely with images, CSS, and node modules</h2>
-          <p>Add this to your package.json</p>
+          <p>Add this to your package.json to get it to work nicely with images, songs, gifs, etc</p>
           <section data-markdown>
             <textarea data-template>
                 ``` json
-            "jest": {
-                "moduleNameMapper": {
-                  "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
-                  "\\.(css|less)$": "<rootDir>/client/src/stylesheets/"
-                },
-                "testPathIgnorePatterns": [
-                  "<rootDir>/node_modules/"
-                ]
-              },
+"jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/client/src/stylesheets/"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
+  },
                 ```
             </textarea>
           </section>

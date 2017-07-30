@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="css/theme/black.css">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="plugin/prism/prism.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,10 +24,12 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+
         <section>
           <h1>Introduction to Jest</h1>
           <p>A library for testing front-end built by Facebook</p>
         </section>
+
         <section>
           <h1>About Me</h1>
           <p>
@@ -38,6 +40,7 @@
           General Assembly alumna
           </p>
         </section>
+
 				<section>
           <h1>Agenda</h1>
           <ul>
@@ -49,6 +52,7 @@
             </ul>
           </ul>
         </section>
+
         <section>
           <h1>Why Jest?</h1>
           <ul>
@@ -64,15 +68,21 @@
             </ul>
           </aside>
         </section>
+
         <section>
           <h1>Sample Simple Snapshot Test</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
+                ```
+            </textarea>
+          </section>
         </section>
+
         <section>
           <h1>What is Snapshot Testing?</h1>
           <ul>
@@ -81,6 +91,7 @@
             <li>This makes Jest super easy to use to test</li>
           </ul>
         </section>
+
         <section>
           <h1>How Snapshot testing works</h1>
           <ul>
@@ -89,89 +100,96 @@
             <li>If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `-u` to update the snapshot.</li>
           </ul>
         </section>
-        <section data-markdown="slides/jestExample.md">
-          <!-- <h1>What does a test look like?</h1> -->
-          <!-- BROKEN MARKDOWN -->
-<!--           <section data-markdown>
-            ``` javascript
-          it('loads in pokemon list', () => {
-            const tree = renderer.create(<App />).toJSON();
-            expect(tree).toMatchSnapshot();
-          });
-            ```
-          </section> -->
-<!--           <pre><code class="hljs" data-trim contenteditable>
-            it('loads in pokemon list', () => {
-              const tree = renderer.create(<App />).toJSON();
-              expect(tree).toMatchSnapshot();
-            });
-          </code></pre> -->
-        </section>
+
         <section>
           <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
           <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
         </section>
+
         <section>
           <h1>Speak now or forever hold your peace!</h1>
         </section>
+
         <section>
           <h1>First Error!</h1>
           <section data-markdown>
-            ```
-            FAIL  tests/app.test.js
-            ● loads in pokemon list
+            <textarea data-template>
+                ``` bash
+FAIL  tests/app.test.js
+● loads in pokemon list
 
-              TypeError: Cannot read property 'names' of undefined
+  TypeError: Cannot read property 'names' of undefined
             ```
+            </textarea>
           </section>
         </section>
+
         <section>
-          <h1>What that means</h1>
-          <p>That was caused by my data being structured like this:</p>
-           <pre><code class="hljs" data-trim contenteditable>
-            const data = {
-              names: [
-                {
-                    "url": "http://pokeapi.co/api/v2/pokemon/1/",
-                    "name": "bulbasaur"
-                },
-                // shortened for length
-              ]
-            }
-          </code></pre>
+          <h3>That was caused by my data being structured like this:</h3>
+          </br>
+          </br>
+          </br>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
+const data = {
+  names: [
+    {
+        "url": "http://pokeapi.co/api/v2/pokemon/1/",
+        "name": "bulbasaur"
+    },
+    // shortened for length
+  ]
+}
+                ```
+            </textarea>
+          </section>
         </section>
+
 				<section>
           <h2>The solution is to passing in data</h2>
           <p>In your test, you want to pass in your data, so literally copy and paste the API response like this:</p>
-          <pre><code class="hljs" data-trim contenteditable>
-            const data = {
-              names: [
-                {
-                    "url": "http://pokeapi.co/api/v2/pokemon/1/",
-                    "name": "bulbasaur"
-                },
-                // shortened for length
-              ]
-            }
-          </code></pre>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
+const data = {
+  names: [
+    {
+        "url": "http://pokeapi.co/api/v2/pokemon/1/",
+        "name": "bulbasaur"
+    },
+    // shortened for length
+  ]
+}
+                ```
+            </textarea>
+          </section>
           <p>data having an array called names, that holds the json threw things off</p>
         </section>
+
         <section>
           <h1>And in your test add this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App data={[data.names]} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
+                ```
+            </textarea>
+          </section>
         </section>
+
         <section>
           <h1>Now lets try this again...</h1>
         </section>
+
         <section>
           <h1>New Error: Not a Function</h1>
           <section data-markdown>
-            ```
+            <textarea data-template>
+                ``` javascript
             FAIL  tests/app.test.js
             ● loads in pokemon list
 
@@ -181,33 +199,51 @@
             ```
           </section>
         </section>
+
         <section>
           <h1>So then we got to App.js line 13 and we see this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
             componentDidMount() {
               this.getPokemon();
             }
-          </code></pre>
+                ```
+            </textarea>
+          </section>
           <p>That is clearly a function...</p>
         </section>
+
         <section>
           <h1>Rage!</h1>
         </section>
-        <section>
-          <h2>Now we need to turn this function into a function</h2>
-          <p>In the test file, you want to add this outside of your test</p>
-          <pre><code class="hljs" data-trim contenteditable>
+
+        <!-- <section> -->
+<!--           <h2>Now we need to turn this function into a function</h2>
+          <p>In the test file, you want to add this outside of your test</p> -->
+          <section data-markdown>
+          ## Now we need to turn this function into a function
+          In the test file, you want to add this outside of your test
+            <textarea data-template>
+                ``` javascript
             const getPokemon = () => {}
-          </code></pre>
-        </section>
+                ```
+            </textarea>
+          </section>
+        <!-- </section> -->
+
         <section>
           <h1>And we change the test to this:</h1>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` javascript
             it('loads in pokemon list', () => {
               const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
               expect(tree).toMatchSnapshot();
             });
-          </code></pre>
+                ```
+            </textarea>
+          </section>
         </section>
 
         <section>
@@ -223,18 +259,24 @@
         <section>
           <h1>How to make Mocha work with Jest</h1>
           <p>Add this to your package.json</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` json
             "scripts": {
               "test-server": "mocha",
               "test-react": "jest",
               "test": "npm run test-server && npm run test-react"
             },
-          </code></pre>
+                ```
+            </textarea>
+          </section>
         </section>
         <section>
           <h2>How to get Jest to work nicely with images, CSS, and node modules</h2>
           <p>Add this to your package.json</p>
-          <pre><code class="hljs" data-trim contenteditable>
+          <section data-markdown>
+            <textarea data-template>
+                ``` json
             "jest": {
                 "moduleNameMapper": {
                   "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
@@ -244,7 +286,9 @@
                   "<rootDir>/node_modules/"
                 ]
               },
-          </code></pre>
+                ```
+            </textarea>
+          </section>
         </section>
         <section>
           <h1>Any questions?</h1>
@@ -264,7 +308,7 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+          { src: 'plugin/prism/prism.js', async: true, callback: function() { Prism.highlightAll(); } }
 				]
 			});
 		</script>

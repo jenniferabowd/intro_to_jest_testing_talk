@@ -28,6 +28,11 @@
         <section>
           <h1>Introduction to Jest</h1>
           <p>A front-end testing library built by Facebook</p>
+          <aside class="notes">
+            Welcome!
+
+            This for people transition who have never used it before
+          </aside>
         </section>
 
         <section>
@@ -42,39 +47,62 @@
         </section>
 
         <section>
-        <iframe src="https://giphy.com/embed/l2Je3KHBPcABK3TZS" width="480" height="366" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/season-10-the-simpsons-10x22-l2Je3KHBPcABK3TZS"></a></p>
+        <iframe src="https://giphy.com/embed/l2Je3KHBPcABK3TZS" width="480" height="366" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          <aside class="notes">
+            Now we are going to get into Jest
+          </aside>
         </section>
 
 				<section>
           <h1>Agenda</h1>
           <ul>
-            <li>Why use Jest?</li>
-            <li>Snapshot Testing Overview</li>
+            <li>Why you should use Jest to test React</li>
+            <li>Overview of snapshot testing</li>
             <li>Frequently encountered bugs</li>
             <ul>
               <li>Or rather, the things that I encounterd that prevented my tests from passing</li>
             </ul>
           </ul>
-        </section>
-
-        <section>
-          <h1>Why Jest?</h1>
-          <ul>
-            <li>Jest is built by Facebook</li>
-            <li>Top Google results for using Mocha with React is from 2015 or early 2016</li>
-            <li>Was neglected for a long time, but for the past year they completely rewrote it and now it is great</li>
-            <li>Front-end only testing is easy, testing API calls from the backend is more complex</li>
-          </ul>
           <aside class="notes">
-            <ul>
-              <li>Downside is there is not many docs with complex examples yet</li>
-              <li>I found it easy to write tests for front-end only code, but when I had to write my first tests with the API calls from the backend, it was a challenge</li>
-            </ul>
+            I started to use Jest on a React Redux app with Node handling the API calls so I encountered some more complex problems my first time using Jest.
+            We will go over these things.
           </aside>
         </section>
 
         <section>
+          <h2>Why Jest to test React?</h2>
+          <ul>
+            <li>Jest is built by Facebook who also builds React</li>
+            <li>Top Google results for Mocha testing React are from 2015 and early 2016</li>
+            <li>Jest was neglected for a long time, but for the past year they completely rewrote it and now it is great</li>
+            <li>Front-end only testing is easy, testing components with API calls from the backend are more complex</li>
+          </ul>
+          <aside class="notes">
+            <ul>
+              <li>Downside is there is not many docs with complex examples yet</li>
+              <li>I found it easy to write tests for front-end only code, but when I had to write my first tests with React referencing API calls from the backend, it was a challenge</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section data-markdown>
+          ## What is Snapshot Testing?
+
+          - Allows you to quickly write tests for static data
+          - The Jest team wants this to be a quick way to write tests so you will write more tests
+          - If the data changes, you don't need to rewrite your test, Jest has a simple command to update the test
+        </section>
+
+        <section data-markdown>
+          ## How Snapshot testing works
+          - You write a simple test with snapshot, then it saves that into a folder of snapshots.
+          - Then when you test it, it compares the page to the snapshot.
+          - If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `npm test -u` to update the snapshot.
+        </section>
+
+        <section>
           <h2>Sample Simple Snapshot Test</h2>
+          <p>This is the base test we will use tonight and we will be modifying to get it to pass. This does work if the API call is on the React side, but if it is on Node it fails.</p>
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
@@ -85,29 +113,33 @@ it('loads in pokemon list', () => {
                 ```
             </textarea>
           </section>
+          <aside class="notes">
+            I created a simple Pokemon app that loads in Pokemon from an API. I used this as the basis of the test we will work with.
+          </aside>
         </section>
 
         <section>
-          <h2>What is Snapshot Testing?</h2>
-          <ul>
-            <li>Allows you to quickly write testing for static data</li>
-            <li>If the data changes, you don't need to rewrite your test, Jest will update the test by running `-u` after your test command</li>
-            <li>This makes Jest super easy to use to test</li>
-          </ul>
-        </section>
+        <h2>This is the data React is getting from the API</h2>
+        <section data-markdown>
+            <textarea data-template>
+                ``` javascript
+const data = {
+  names: [
+    {
+        "url": "http://pokeapi.co/api/v2/pokemon/1/",
+        "name": "bulbasaur"
+    },
+    // shortened for length
+  ]
+}
+                ```
+            </textarea>
+          </section>
 
-        <section>
-          <h2>How Snapshot testing works</h2>
-          <ul>
-            <li>You write a simple test with snapshot, then it saves that into a folder of snapshots.</li>
-            <li>Then when you test it, it compares the page to the snapshot.</li>
-            <li>If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `-u` to update the snapshot.</li>
-          </ul>
         </section>
-
         <section>
-          <h2>Does everyone understand the basics of Snapshot testing conceptually?</h2>
-          <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea</p>
+          <h2>Does everyone understand the basics of Snapshot testing?</h2>
+          <p>If not, please speak up. What is coming will get confusing if you are already hazy on the idea.</p>
         </section>
 
         <section>
@@ -116,7 +148,7 @@ it('loads in pokemon list', () => {
 
         <section>
           <h2>So now we run that simple test...</h2>
-          <iframe src="https://giphy.com/embed/mJEAgWXtQ747m" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/week-seth-macfarlane-stereogum-mJEAgWXtQ747m"></a></p>
+          <iframe src="https://giphy.com/embed/XdreKrQI1LjcQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
         <section>
@@ -154,10 +186,20 @@ const data = {
         </section>
 
 				<section>
-          <h2>The solution is to passing in data</h2>
-          <p>Literally copy and paste the API response from the previous slide into your test</p>
+          <h2>The solution is to passing in data to the test</h2>
+          <p>Meaning literally copy and paste the API response from the previous slide into your test</p>
+          <aside class="notes">
+            <p>data having an array called names, that holds the json threw things off</p>
+          </aside>
+        </section>
+
+        <section>
           <iframe src="https://giphy.com/embed/3o6Mbq70hqQpebY62s" width="480" height="366" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-          <!-- <section data-markdown>
+        </section>
+
+        <section>
+          <h2>And in your test add this:</h2>
+          <section data-markdown>
             <textarea data-template>
                 ``` javascript
 const data = {
@@ -169,20 +211,7 @@ const data = {
     // shortened for length
   ]
 }
-                ```
-            </textarea>
-          </section> -->
-          <aside class="notes">
-            <p>data having an array called names, that holds the json threw things off</p>
-          </aside>
 
-        </section>
-
-        <section>
-          <h2>And in your test add this:</h2>
-          <section data-markdown>
-            <textarea data-template>
-                ``` javascript
 it('loads in pokemon list', () => {
   const tree = renderer.create(<App data={[data.names]} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -256,6 +285,8 @@ const getPokemon = () => {}
           <section data-markdown>
             <textarea data-template>
                 ``` javascript
+const getPokemon = () => {}
+
 it('loads in pokemon list', () => {
   const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -266,15 +297,22 @@ it('loads in pokemon list', () => {
         </section>
 
         <section>
+        <h2>And now we try this test again...</h2>
+          <iframe src="https://giphy.com/embed/3o7TKCFii3mAz693Ko" width="480" height="252" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </section>
+
+        <section>
           <h2>Now we have a passing test!</h2>
           <iframe src="https://giphy.com/embed/kEKcOWl8RMLde" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/happy-crazy-homer-simpson-kEKcOWl8RMLde"></a></p>
         </section>
+        <section data-markdown>
+          ## Summary of the problem
+            - Jest had a hard time accessing an array inside the `json`
+            - Jest didn't understand that function called inside of `componentDidMount()` was a function, so we had to make this explicit
+        </section>
+
         <section>
-          <h2>Summary of the problem</h2>
-          <ul>
-            <li>Jest had a hard time accessing an array inside the json</li>
-            <li>Jest didn't understand that function called inside of componentDidMount() was a function, so we had to make this explicate</li>
-          </ul>
+          <h1>Now here are some helpful tips to get Jest to work in a large app</h1>
         </section>
         <section>
           <h2>How to make Mocha work with Jest</h2>

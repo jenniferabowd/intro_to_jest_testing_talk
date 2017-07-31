@@ -31,7 +31,7 @@
           <aside class="notes">
             Welcome!
 
-            This for people transition who have never used it before
+            This for people learn a little bit about Jest
           </aside>
         </section>
 
@@ -64,7 +64,7 @@
             </ul>
           </ul>
           <aside class="notes">
-            I started to use Jest on a React Redux app with Node handling the API calls so I encountered some more complex problems my first time using Jest.
+            I started to use Jest on a React Redux app with Node handling the API calls so I encountered some complicated problems the first time I used Jest.
             We will go over these things.
           </aside>
         </section>
@@ -98,6 +98,7 @@
           - You write a simple test with snapshot, then it saves that into a folder of snapshots.
           - Then when you test it, it compares the page to the snapshot.
           - If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `npm test -u` to update the snapshot.
+          - Therefore if the data changes, you don't need to write a new test.
         </section>
 
         <section>
@@ -143,7 +144,7 @@ const data = {
         </section>
 
         <section>
-        <iframe src="https://giphy.com/embed/3og0IJJEhs1mNLHa9O" width="480" height="238" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/womenshistorymonth-feminism-womens-history-3og0IJJEhs1mNLHa9O"></a></p>
+        <iframe src="https://giphy.com/embed/3og0IJJEhs1mNLHa9O" width="480" height="238" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
         <section>
@@ -186,7 +187,7 @@ const data = {
         </section>
 
 				<section>
-          <h2>The solution is to passing in data to the test</h2>
+          <h2>The solution is to pass in data to the test</h2>
           <p>Meaning literally copy and paste the API response from the previous slide into your test</p>
           <aside class="notes">
             <p>data having an array called names, that holds the json threw things off</p>
@@ -194,6 +195,7 @@ const data = {
         </section>
 
         <section>
+          <h2>So then we copy and paste</h2>
           <iframe src="https://giphy.com/embed/3o6Mbq70hqQpebY62s" width="480" height="366" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
@@ -225,8 +227,8 @@ it('loads in pokemon list', () => {
         </section>
 
         <section>
-          <!-- <h2>Now lets try this again...</h2> -->
-          <iframe src="https://giphy.com/embed/3o6MbaH9LYlaVpHWBa" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/music-video-aaliyah-try-again-3o6MbaH9LYlaVpHWBa"></a></p>
+          <h2>Now lets try this again...</h2>
+          <iframe src="https://giphy.com/embed/3o6MbaH9LYlaVpHWBa" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
         <section>
@@ -265,7 +267,7 @@ componentDidMount() {
         </section>
 
         <section>
-        <iframe src="https://giphy.com/embed/xTiTnJ3BooiDs8dL7W" width="480" height="305" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/monkey-laptop-baboon-xTiTnJ3BooiDs8dL7W"></a></p>
+        <iframe src="https://giphy.com/embed/xTiTnJ3BooiDs8dL7W" width="480" height="305" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
         <section>
@@ -288,7 +290,9 @@ const getPokemon = () => {}
 const getPokemon = () => {}
 
 it('loads in pokemon list', () => {
-  const tree = renderer.create(<App getPokemon={getPokemon} data={data} />).toJSON();
+  const tree = renderer
+  .create(<App getPokemon={getPokemon} data={[data.names]} />)
+  .toJSON();
   expect(tree).toMatchSnapshot();
 });
                 ```
@@ -303,7 +307,7 @@ it('loads in pokemon list', () => {
 
         <section>
           <h2>Now we have a passing test!</h2>
-          <iframe src="https://giphy.com/embed/kEKcOWl8RMLde" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/happy-crazy-homer-simpson-kEKcOWl8RMLde"></a></p>
+          <iframe src="https://giphy.com/embed/kEKcOWl8RMLde" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
         <section data-markdown>
           ## Summary of the problem
@@ -312,7 +316,7 @@ it('loads in pokemon list', () => {
         </section>
 
         <section>
-          <h1>Now here are some helpful tips to get Jest to work in a large app</h1>
+          <h1>Other helpful tips!</h1>
         </section>
         <section>
           <h2>How to make Mocha work with Jest</h2>
@@ -349,11 +353,12 @@ it('loads in pokemon list', () => {
         </section>
 
         <section>
-        <iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG"></a></p>
+        <iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 
         <section>
           <h2>Any questions?</h2>
+          <iframe src="https://giphy.com/embed/DUrdT2xEmJWbS" width="480" height="353" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </section>
 			</div>
 		</div>

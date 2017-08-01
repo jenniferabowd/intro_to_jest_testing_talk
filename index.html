@@ -73,7 +73,7 @@
         </section>
 
         <section>
-          <h2>Why Jest to test React?</h2>
+          <h2>Why you should use Jest to test React?</h2>
           <ul>
             <li>Jest is built by Facebook who also builds React</li>
             <li>Top Google results for Mocha testing React are from 2015 and early 2016</li>
@@ -100,8 +100,11 @@
           ## How Snapshot testing works
           - You write a simple test with snapshot, then it saves that into a folder of snapshots.
           - Then when you test it, it compares the page to the snapshot.
-          - If they match, it passes. If it doesn't match, it shows you the changes and you can run the test again with `npm test -u` to update the snapshot.
+          - If they match, the test passes. If it doesn't match, it shows you the changes and you can run the test again with `npm test -u` to update the snapshot.
           - Therefore if the data changes, you don't need to write a new test.
+          <aside class="notes">
+            For example, a few hours ago my coworker asked me to update his tests because he changed the database from Algolia to Mongo
+          </aside>
         </section>
 
         <section>
